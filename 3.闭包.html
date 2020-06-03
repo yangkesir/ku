@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    /* 
+        闭包的概念：定义在一个函数内部的函数(函数嵌套函数)，闭包就是将函数内部和函数外部连接起来的一座桥梁。
+
+        闭包的特点：
+        在一个函数内部定义另外一个函数，并且返回内部函数。(外部获取函数内部的变量)
+        内部函数可以读取外部函数定义的局部变量(利用函数内部的函数间接将函数内部的变量返回)
+        让局部变量始终保存在内存中(保持内部的函数一直访问)。也就是说，闭包可以使得它诞生环境一直存在。
+
+
+
+        注意冲突和依赖
+        全局变量一直存在，少用，函数内部的变量用完即销毁，可以用。
+        
+    
+    */
+
+   
+    function fn(){
+       var a = 100;//局部
+       function fnA(){
+           alert(a);
+       }
+       fnA()
+    }
+    fn();
+   //形成独立的作用域(开发的环境)
+   //闭包的写法 - 开发的常见写法(不是最优)
+    (function(){
+       var a = 100;//局部
+       function fnA(){
+           alert(a);
+       }
+       fnA();
+   })();
+
+   !function(){
+       var a = 100;//局部
+       function fnA(){
+           alert(a);
+       }
+       fnA();
+   }();
+
+    </script>
+</body>
+</html>

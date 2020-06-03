@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Person(name, age, sex) {
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+        }
+
+        Person.prototype.showinfo = function() {
+            return `我的姓名是${this.name}，我今年${this.age}岁，我是${this.sex}的`;
+        }
+
+        Person.prototype.info = function() {
+            return '我是父类的方法';
+        }
+
+        Object.prototype.name = '王五';
+        Object.prototype.hehe = 'haha';
+
+
+        let p1 = new Person('zhangsan', 100, '男');
+
+
+        // 1.hasOwnProperty()  : 看是不是对象自身下面的属性， 只在属性存在于实例中时才返回 true。 
+        // console.log(p1.hasOwnProperty('name')); //true
+        // console.log(p1.hasOwnProperty('hehe')); //false
+
+        // in操作符，看是不是对象自身下面的属性，包括原型链上的。
+
+        // console.log('name' in p1);
+        // console.log('hehe' in p1);
+
+        // 2.toString() :系统对象下面都是自带的 , 系统对象都有toString(),自己写的对象都是通过原型链找Object下面的，可以把对象转成字符串，可以做进制转换或者类型的判断。
+        // console.log(typeof [1, 2, 3].toString());
+        // let num = 10;
+        // console.log(num.toString(2)); //1010
+        // console.log(Object.prototype.toString.call([])); //[object Array]
+        // 3.constructor：实例对象的构造函数  (实例对象.constructor)
+        // alert(p1.constructor);
+        // 4.instanceof：判断一个对象是否是一个构造函数（类）的实例。
+        //特殊的
+        // console.log(Function instanceof Object);
+        // console.log(Object instanceof Function);
+        // console.log(new Array instanceof Object); //true
+        // console.log(new Array instanceof Function); //false
+        // console.log(Array instanceof Function); //true
+        // console.log(new Object instanceof Object);
+    </script>
+</body>
+
+</html>

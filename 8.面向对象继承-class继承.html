@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 2.ES6class开发
+
+        // extends关键字：
+        // Class 可以通过extends关键字实现继承，这比 ES5 的通过修改原型链实现继承，要清晰和方便很多。
+
+        // super关键字：
+        // 子类必须在constructor方法中调用super方法，否则新建实例时会报错。这是因为子类自己的this对象，必须先通过父类的构造函数完成塑造，得到与父类同样的实例属性和方法，然后再对其进行加工，加上子类自己的实例属性和方法。如果不调用super方法，子类就得不到this对象。
+
+        // super关键字既可以当作函数使用，也可以当作对象使用。
+        // 第一种情况，super作为函数调用时，代表父类的构造函数。
+        // 第二种情况，super作为对象时，在普通方法中，指向父类的原型对象；
+
+        class Person {
+            constructor(name, age, sex) {
+                this.name = name;
+                this.age = age;
+                this.sex = sex;
+            }
+            showinfo() {
+                return `我的姓名是${this.name}，我今年${this.age}岁，我是${this.sex}的`;
+            }
+
+            info() {
+                return '我是父类的方法';
+            }
+        }
+
+        let p1 = new Person('zhangsan', 100, '男');
+        console.log(p1.name);
+        console.log(p1.showinfo());
+
+        class Student extends Person {
+            constructor(name, age, sex, pro) {
+                super(name, age, sex); //要得到与父类同样的实例属性和方法,必须先调用super方法，子类才能得到this对象
+                this.pro = pro;
+            }
+
+            showinfo() {
+                return super.showinfo() + ',我的专业是' + this.pro; //super当对象使用
+            }
+        }
+
+        let s1 = new Student('lisi', 2500, '女', 'web');
+        console.log(s1.name);
+        console.log(s1.showinfo());
+
+        console.log(typeof Person); //function  构造函数的语法糖
+    </script>
+</body>
+
+</html>

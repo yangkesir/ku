@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // function Fn() {
+        //     this.num = 100;
+        // }
+
+        // Fn.prototype.shownum = function() {
+        //     return this.num;
+        // }
+
+        // let f1 = new Fn(); //自定义的对象
+
+        // console.log(f1.toString()); //自定义的对象也有toString
+
+        // let arr = new Array(1, 2, 3); //系统对象
+        // console.log(arr.toString());
+
+        //系统对象下面都有toString这个方法，自定义的对象通过继承获取这个方法(Object.prototype.toString)
+
+        //系统对象通过__proto__属性，去找prototype上面的属性和方法。
+        //继续向上查找，找到Object.prototype上面的属性和方法。
+        // Array.prototype.push = function() {}
+
+        //1.原型链
+        //每一个对象都有一个__proto__
+        //JS在创建对象的时候，都有一个叫做__proto__的内置属性，用于指向创建它的函数对象的原型prototype。
+        //概念：实例对象与原型(prototype)的连接，依靠__proto__内置属性实现的。
+
+        // function Fn() {
+        //     this.num = 100;
+        //     this.shownum = function() {
+        //         return '我是构造函数内部';
+        //     }
+        // }
+
+        // Fn.prototype.shownum = function() {
+        //     return '我是原型上面的'
+        // }
+
+        //Fn.prototype.num = 1000;
+
+        // Object.prototype.shownum = function() {
+        //     return '我是对象上面的'
+        // }
+
+        //Object.prototype.num = 10000;
+
+        let f1 = new Fn(); //自定义的对象
+
+        // console.log(f1.shownum());
+        // console.log(f1.num); //undefined
+        // alert(Fn); //构造函数体
+        // alert(f1.constructor); //构造函数体
+        // alert(Fn.prototype.constructor); //构造函数体
+
+        alert(Object.prototype.constructor); //function Object() { [native code] }
+        alert(Function.prototype.constructor); //function Function() { [native code] }
+
+
+
+        //Object.prototype  = Function(function) + Object(...)
+
+        //特殊的
+        // console.log(Function instanceof Object);
+        // console.log(Object instanceof Function);
+
+
+
+        // console.log(new Array instanceof Object); //true
+        // console.log(new Array instanceof Function); //false
+        // console.log(Array instanceof Function); //true
+        // console.log(new Object instanceof Object);
+    </script>
+</body>
+
+</html>

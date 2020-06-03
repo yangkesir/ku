@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .active {
+            background-color: red;
+        }
+        
+        .item {
+            width: 300px;
+            height: 400px;
+            border: 1px solid red;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="tab">
+        <button class="active">html</button>
+        <button>css</button>
+        <button>javascript</button>
+        <div class="item" style="display: block;">
+            HTML的英文全称是 Hyper Text Marked Language，即超文本标记语言。HTML是由Web的发明者 Tim Berners-Lee和同事于1990年创立的一种标记语言，它是标准通用化标记语言SGML的应用。用HTML编写的超文本文档称为HTML文档，它能独立于各种操作系统平台(如UNIX， Windows等)。使用HTML语言，将所需要表达的信息按某种规则写成HTML文件，通过专用的浏览器来识别，并将这些HTML文件“翻译”成可以识别的信息，即现在所见到的网页。
+        </div>
+        <div class="item">
+            1994年，Web真正走出实验室。 从HTML被发明开始，样式就以各种形式存在。不同的浏览器结合它们各自的样式语言为用户提供页面效果的控制。最初的HTML只包含很少的显示属性。 随着HTML的成长，为了满足页面设计者的要求，HTML添加了很多显示功能。但是随着这些功能的增加，HTML变的越来越杂乱，而且HTML页面也越来越臃肿。于是CSS便诞生了。 1994年哈坤·利提出了CSS的最初建议。而当时伯特·波斯（Bert Bos）正在设计一个名为Argo的浏览器，于是他们决定一起设计CSS。 哈坤·利提于1994年在芝加哥的一次会议上第一次提出了CSS的建议，1995年的www网络会议上CSS又一次被提出，伯特·波斯演示了Argo浏览器支持CSS的例子
+        </div>
+        <div class="item">
+            1990年底，欧洲核能研究组织（CERN）科学家 Tim Berners-Lee，在全世界最大的电脑网络——互联网的基础上，发明了万维网（World Wide Web），从此可以在网上浏览网页文件(命令操作麻烦)。 1992年底，美国国家超级电脑应用中心（NCSA）开始开发一个独立的浏览器，叫做 Mosaic。这是人类历史上第一个浏览器，从此网页可以在图形界面的窗口浏览。 1994年10月，NCSA 的一个主要程序员 Marc Andreessen 联合风险投资家 Jim Clark，成立了 Mosaic
+            通信公司（Mosaic Communications），不久后改名为 Netscape。这家公司的方向，就是在 Mosaic 的基础上，开发面向普通用户的新一代的浏览器 Netscape Navigator。
+        </div>
+    </div>
+    <script>
+        const aBtn = document.querySelectorAll('button');
+        const aItem = document.querySelectorAll('.item');
+        let timer = null;
+
+        //自定义属性(自定义索引)实现
+        /* for(var i=0;i<aBtn.length;i++){
+            aBtn[i].index = i;
+            aBtn[i].onmouseover = function(){
+                timer=setTimeout(() => {
+                     for(var j=0;j<aBtn.length;j++){
+                        aBtn[j].className = '';
+                        aItem[j].style.display = 'none';
+                    }
+                    this.className = 'active';
+                    aItem[this.index].style.display = 'block';
+                }, 400);
+            };
+
+            aBtn[i].onmouseout = function(){
+                clearTimeout(timer);
+            }
+        } */
+
+        //let方式：块作用域，变量绑定在特定的区域
+        /*  for(let i=0;i<aBtn.length;i++){
+             aBtn[i].onmouseover = function(){
+                 timer=setTimeout(() => {
+                      for(var j=0;j<aBtn.length;j++){
+                         aBtn[j].className = '';
+                         aItem[j].style.display = 'none';
+                     }
+                     aBtn[i].className = 'active';
+                     aItem[i].style.display = 'block';
+                 }, 400);
+             };
+
+             aBtn[i].onmouseout = function(){
+                 clearTimeout(timer);
+             }
+         } */
+
+        //闭包的方式
+        for (var i = 0; i < aBtn.length; i++) {
+            //i:0 - aBtn.length
+            (function(i) {
+                //i:0 - aBtn.length
+                aBtn[i].onmouseover = function() {
+                    timer = setTimeout(() => {
+                        for (var j = 0; j < aBtn.length; j++) {
+                            aBtn[j].className = '';
+                            aItem[j].style.display = 'none';
+                        }
+                        aBtn[i].className = 'active';
+                        aItem[i].style.display = 'block';
+                    }, 400);
+                };
+
+                aBtn[i].onmouseout = function() {
+                    clearTimeout(timer);
+                }
+            })(i);
+        }
+
+
+        /* 
+        总结：
+        1.面试(概念，优缺点，应用场景)
+        2.开发中的一种格式 - 闭包写法
+        3.避免全局污染。
+        */
+    </script>
+</body>
+
+</html>

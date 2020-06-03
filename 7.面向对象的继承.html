@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //面向对象的三大特点：封装，继承，多态。
+        //继承：子类继承父类，但不影响父类。
+        //函数是对象，函数有属性和方法(length,call()/apply()/bind())
+        //类，构造函数 this - > 实例对象
+
+        // 面向对象开发的两种方式
+
+        // 1.混合开发（构造函数继承+原型）--混合继承
+
+        function Person(name, age, sex) {
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+        }
+
+        Person.prototype.showinfo = function() {
+            return `我的姓名是${this.name}，我今年${this.age}岁，我是${this.sex}的`;
+        }
+
+        Person.prototype.info = function() {
+            return '我是父类的方法';
+        }
+
+        /* Person.prototype = {
+            showinfo: function() {
+                return `我的姓名是${this.name}，我今年${this.age}岁，我是${this.sex}的`;
+            }
+        } */
+
+        let p1 = new Person('zhangsan', 100, '男');
+        console.log(p1.name);
+        console.log(p1.age);
+        console.log(p1.showinfo());
+
+        alert(p1.constructor); //输出person构造函数体
+
+
+        function Student(name, age, sex, pro) {
+            //属性继承(构造函数的继承)--call/apply
+            Person.call(this, name, age, sex);
+            this.pro = pro;
+        }
+
+        //方法继承(原型继承)
+        //方法继承1 - 浅拷贝：将prototype下面的方法一一赋值给子类。
+        // for(var i in Person.prototype){
+        //     Student.prototype[i] = Person.prototype[i]
+        // }
+
+        // Object.assign(Student.prototype, Person.prototype);
+
+        //方法继承2 - 原型继承：将父类的实例给子类的原型。
+        Student.prototype = new Person(); //不但继承了Person.prototype的方法，同时修改了子类的构造函数体。
+        Student.prototype.constructor = Student; //重新设置子类的构造函数体。
+
+        let s1 = new Student('lisi', 2500, '女', 'web');
+
+        console.log(s1.name);
+        console.log(s1.age);
+        console.log(s1.showinfo());
+        console.log(s1.info());
+        alert(s1.constructor);
+
+
+
+        // var arr1 = [1, 2, 3];
+        // var arr2 = arr1; //引用传递,arr1的地址给arr2,arr1和arr2指向同一个地址。
+        // arr2.push(4);
+        // console.log(arr1); //[1, 2, 3, 4]
+        // console.log(arr2); //[1, 2, 3, 4]
+    </script>
+</body>
+
+</html>

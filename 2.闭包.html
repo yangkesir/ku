@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //1. 局部作用域（变量）：只对函数内部有效，即只能在本变量声明的函数内部调用。
+        // function fn(){
+        //     var num =100;
+        // }
+        // fn()
+        // alert(num);//不被允许
+
+        //2.如何获取函数内部的变量
+        /* function fn(){
+            var num =100;
+            function fnA(){
+                return num;
+            }
+            return fnA();
+        }
+
+        var c=fn();
+        alert(c); */
+
+        //借助函数将内部变量输出
+        // function fn(){
+        //     var num =100;//一直存在，除非手动删除。
+        //     return function (){
+        //         return num++;
+        //     }
+        // }
+
+        //每次调用重新执行，碰到num=100,然后返回执行内部的函数
+        // alert(fn()());//100
+        // alert(fn()());//100
+        // alert(fn()());//100
+        // alert(fn()());//100
+
+        //var c=fn();//存储函数的返回值。  [当退出函数时，它们都会随着函数调用的结束而被销毁]
+        //函数内部的变量一定是给函数内部使用。
+        //这里的变量没有回收，没有被销毁，一直存在于内存中(垃圾回收机制失效)，变量一直被内部的函数所引用，不能消失。
+        // alert(c());//100
+        // alert(c());//101
+        // alert(c());//102
+        // alert(c());//103
+
+
+        // (function (){
+        //     var num =100;//一直存在，除非手动删除。
+        //     function fn(){
+        //         return num++;
+        //     }
+        //     alert(fn());
+        // })();
+
+
+
+        // for(var i=1;i<=5;i++){
+        //     //i:1-5
+        //     setTimeout(function(){
+        //         //i:循环的最后一次值 6
+        //         console.log(i); 
+        //     }, 1000);
+        // }
+
+
+        for(var i=1;i<=5;i++){
+            (function(i){//i:形参，接收for循环的i，形参也是局部变量。  var i
+                setTimeout(function(){ 
+                    console.log(i); //i:1,2,3,4,5
+                 }, 1000);
+            })(i);//for循环的i
+        }
+
+        //独立的范围
+        (function(){
+            var a =2100;
+            function fn(){
+                alert(++a);
+            }
+            fn()
+        })();
+
+        (function(){
+            var a =2100;
+            function fn(){
+                alert(++a);
+            }
+            fn()
+        })();
+
+       
+    </script>
+</body>
+</html>

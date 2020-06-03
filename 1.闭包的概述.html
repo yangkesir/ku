@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        代码开发的格式 - 注意冲突和依赖
+     -->
+
+     <script>
+
+        /* 
+        1.作用域：
+        任何程序设计语言都有作用域的概念，简单的说，作用域就是变量与函数的可访问范围，即作用域控制着变量与函数的可见性和生命周期。
+        局部作用域和全局作用域
+        在JavaScript中，变量的作用域有全局作用域和局部作用域两种
+        全局作用域（变量）：整个程序都有效，即整个代码中都可以调用（变量前面没有添加var变成全局的属性）
+        局部作用域（变量）：只对函数内部有效，即只能在本变量声明的函数内部调用。
+        */
+
+
+       /* 
+       var a =1;//全局
+       function fn(){//函数是半透明的，里面看到外面，外面看不到里面。
+           var b=2;//局部
+           c=3;//没有var，变成全局的属性
+           alert(a);//1
+       }
+       fn();
+       alert(a);//1
+       alert(c);//3
+       alert(b);//报错 b is not define 
+       */
+
+
+      //2.作用域链
+      //当声明一个函数时，局部作用域一级一级向上包起来，就是作用域链。
+      //函数内部访问查找变量的顺序。
+      //内 - 外
+      /* 
+      var num =1;
+      function a(){
+          var num =2;
+          function b(){
+              var num =3;
+              function c(){
+                  var num =4;
+                  alert(num);
+              }
+              c()
+          }
+          b()
+      }
+      a(); 
+      */
+
+        /* 
+        3.作用域控制着变量与函数的可见性和生命周期。
+        全局变量：生存周期对于全局变量是永久的，除非我们主动销毁这个全局变量。(浏览器垃圾回收机制)
+        局部变量：函数内用 var 关键字声明的局部变量，当退出函数时，它们都会随着函数调用的结束而被销毁。 
+        */
+
+
+
+
+        /* 
+        
+        4.垃圾回收方式--浏览器
+        标记清除（mark and sweep）、引用计数(reference counting)。
+        4.1 标记清除
+        大部分浏览器以此方式进行垃圾回收，当变量进入执行环境（函数中声明变量）的时候，垃圾回收器将其标记为“进入环境”，当变量离开环境的时候（函数执行结束）将其标记为“离开环境”，在离开环境之后还有的变量则是需要被删除的变量。
+
+
+        垃圾收集器给内存中的所有变量都加上标记， 然后除了环境中的变量以及被环境中的变量引用的变量。在此之后再被加上的标记的变量即为需要回收的变量， 因为环境中的变量已经无法访问到这些变量。
+
+        function fn(){
+            var a =1;
+            return function(){
+                return a++;
+            }
+        }
+
+        4.2 引用计数
+        低版本的IE使用这种方式。 机制就是跟踪一个值的引用次数， 当声明一个变量并将一个引用类型赋值给该变量时该值引用次数加1， 当这个变量指向其他一个值，该值的引用次数便减一。 当该值引用次数为0时就会被回收。
+        该值引用次数为0时,还不能被回收，一直占据内存，叫做内存泄漏。
+
+        */
+
+        function Box(){this.name='zhang';}
+     function Desk(){this.age=100;}
+     function Table(){this.lever=1000}
+     Desk.prototype=new Box();//通过原型链继承
+     var desk=new Desk();     var table=new Table();
+
+
+ alert(table instanceof Object)
+
+ alert(desk instanceof Box);
+
+ alert(Desk instanceof Box);
+ 
+ alert(desk  instanceof Desk );
+
+       
+     </script>
+</body>
+</html>
